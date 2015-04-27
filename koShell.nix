@@ -1,8 +1,7 @@
 with (import <nixpkgs> {});
-with pkgs.haskell-ng.lib;
 
 let hspkgs = haskell-ng.packages.ghc7101.override { overrides = self: super: {
-           purescript =  doJailbreak(self.callPackage ./purescript.nix {});
+           purescript =  self.callPackage ./purescript.nix {};
            };    };
     nodePkgs = pkgs.nodePackages;
     env = hspkgs.ghcWithPackages (p: with p; [purescript ]);

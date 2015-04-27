@@ -17,3 +17,20 @@ You can now install the starter project:
     bower update
     grunt
 
+## Note for future self  :
+
+I could not figure out why referring to purescript from haskellngPackages worked but not from the cabal2nix extract
+
+    Setup: At least the following dependencies are missing:
+    file-embed ==0.0.7.*, utf8-string ==1.*
+
+Strong hint with 
+
+    nix-store -q --references $(nix-store -q --references $(nix-store -q --references $(nix-instantiate shellwithscript.nix) G ghc) G purescript)
+
+I retrieve ghc then purescript then get the references, and could pinpoint a missing jailbreak-cabal-1.3.drv in the extract
+
+Adding a doJailbreak as [gridaphobe](https://github.com/gridaphobe/dotfiles/blob/master/nixpkgs/config.nix)  does made it.
+
+
+also always use an environment made with ghcWithPackages, unless one targets a specific package
