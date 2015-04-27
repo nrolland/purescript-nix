@@ -1,10 +1,9 @@
 { fynderConfig ? <fynder/config/fynder.conf.test> }:
 
-with import <nixpkgs> {};
+with (import <nixpkgs> {}).pkgs;
 
-let haskellPackages = pkgs.haskellPackages.override {
-      extension = self: super: {
-        cmdtheline = self.callPackage ./cmdtheline.nix {};
+let hspkgs = haskellngPackages.override {
+      overrides = self: super: {
         purescript = self.callPackage ./purescript.nix {};
       };
     };
@@ -14,7 +13,7 @@ in rec {
        name = "purescript-env";
        version = "1.1.1.1";
        src = ./.;
-       buildInputs = [ haskellPackages.purescript nodePkgs.bower nodePkgs.grunt-cli git ];
+       buildInputs = [ hspkgs.purescript nodePkgs.bower nodePkgs.grunt-cli  git ];
    };
 }
 
