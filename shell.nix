@@ -1,5 +1,3 @@
-{ fynderConfig ? <fynder/config/fynder.conf.test> }:
-
 with (import <nixpkgs> {}).pkgs;
 
 let hspkgs = haskellngPackages.override {
