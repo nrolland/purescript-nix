@@ -1,24 +1,24 @@
-{ cabal, cmdtheline, filepath, haskeline, monadUnify, mtl, parsec
-, patternArrows, time, transformers, unorderedContainers
-, utf8String, xdgBasedir
+{ mkDerivation, base, boxes, containers, directory, file-embed
+, filepath, haskeline, mtl, nodejs, optparse-applicative, parsec
+, pattern-arrows, process, stdenv, time, transformers
+, unordered-containers, utf8-string
 }:
-
-cabal.mkDerivation (self: {
+mkDerivation {
   pname = "purescript";
-  version = "0.5.4";
-  sha256 = "02mxg9bsyzhr7xclf7jdsjjwcc6d05ibji64n9783rc1i9clc2gg";
+  version = "0.6.9.5";
+  sha256 = "196iq0jaryna4cgg7f07axccbnl5h82fvrjlry6839q05ndl83vf";
   isLibrary = true;
   isExecutable = true;
   buildDepends = [
-    cmdtheline filepath haskeline monadUnify mtl parsec patternArrows
-    time transformers unorderedContainers utf8String xdgBasedir
+    base boxes containers directory file-embed filepath haskeline mtl
+    optparse-applicative parsec pattern-arrows process time
+    transformers unordered-containers utf8-string
   ];
-  doCheck = false;
-  testDepends = [ filepath mtl parsec transformers utf8String ];
-  meta = {
-    homepage = "http://www.purescript.org/";
-    description = "PureScript Programming Language Compiler";
-    license = self.stdenv.lib.licenses.mit;
-    platforms = self.ghc.meta.platforms;
-  };
-})
+  testDepends = [
+    base containers directory filepath mtl parsec process transformers
+  ];
+  buildTools = [ nodejs ];
+  homepage = "http://www.purescript.org/";
+  description = "PureScript Programming Language Compiler";
+  license = stdenv.lib.licenses.mit;
+}
